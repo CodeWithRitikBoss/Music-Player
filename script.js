@@ -15,7 +15,7 @@ let defaultSongs;
 // This function will fetch the list of songs from the server.
 async function getSongs(folder) {
     currentFolder = folder;
-    let a = await fetch(`https://github.com/CodeWithRitikBoss/Music-Player/tree/master/${folder}/`)
+    let a = await fetch(`http://127.0.0.1:3000/${folder}/`)
     let response = await a.text();
     let div = document.createElement("div")
     div.innerHTML = response;
@@ -65,7 +65,7 @@ async function getSongs(folder) {
 }
 
 async function displayAlbums() {
-    let a = await fetch(`https://github.com/CodeWithRitikBoss/Music-Player/tree/master/songs/`)
+    let a = await fetch(`http://127.0.0.1:3000/songs/`)
     let response = await a.text();
     let div = document.createElement("div")
     div.innerHTML = response;
@@ -77,7 +77,7 @@ async function displayAlbums() {
         if (e.href.includes("/songs")) {
             let songFolderName = e.href.split("/").slice(-2)[0]
             // Get the metadata of the song's Folder.
-            let a = await fetch(`https://github.com/CodeWithRitikBoss/Music-Player/tree/master/songs/${songFolderName}/info.json`)
+            let a = await fetch(`http://127.0.0.1:3000/songs/${songFolderName}/info.json`)
             let response = await a.json();
             console.log(response)
             cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${songFolderName}" class="card">
@@ -165,7 +165,7 @@ async function main() {
     changeLogoColorRandmonly()
 
     // Get the list of all songs.
-    await getSongs("songs/Punjabi%20Songs");
+    await getSongs("songs/Hindi%20Songs");
     for (let index = 0; index < songs.length; index++) {
         console.log(`Song ${index + 1}: ${songs[index]}`);
     }
