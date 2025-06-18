@@ -165,7 +165,7 @@ async function main() {
     changeLogoColorRandmonly()
 
     // Get the list of all songs.
-    await getSongs("songs/Hindi%20Songs");
+    await getSongs("songs/Punjabi%20Songs");
     for (let index = 0; index < songs.length; index++) {
         console.log(`Song ${index + 1}: ${songs[index]}`);
     }
