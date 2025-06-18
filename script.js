@@ -15,7 +15,7 @@ let defaultSongs;
 // This function will fetch the list of songs from the server.
 async function getSongs(folder) {
     currentFolder = folder;
-    let a = await fetch(`http://127.0.0.1:3000/${folder}/`)
+    let a = await fetch(`http://192.168.31.33:3000/${folder}/`)
     let response = await a.text();
     let div = document.createElement("div")
     div.innerHTML = response;
@@ -65,7 +65,7 @@ async function getSongs(folder) {
 }
 
 async function displayAlbums() {
-    let a = await fetch(`http://127.0.0.1:3000/songs/`)
+    let a = await fetch(`http://192.168.31.33:3000/songs/`)
     let response = await a.text();
     let div = document.createElement("div")
     div.innerHTML = response;
@@ -77,7 +77,7 @@ async function displayAlbums() {
         if (e.href.includes("/songs")) {
             let songFolderName = e.href.split("/").slice(-2)[0]
             // Get the metadata of the song's Folder.
-            let a = await fetch(`http://127.0.0.1:3000/songs/${songFolderName}/info.json`)
+            let a = await fetch(`http://192.168.31.33:3000/songs/${songFolderName}/info.json`)
             let response = await a.json();
             console.log(response)
             cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${songFolderName}" class="card">
