@@ -339,6 +339,26 @@ body {
     padding: 12px;
 }
 
+.playModeButton {
+    width: 100%;
+    height: 20px;
+    /* background-color: gray; */
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-right: 20px;
+}
+
+.loopBtn {
+    cursor: pointer;
+}
+.shuffleBtn {
+    cursor: pointer;
+}
+.repeatBtn {
+    cursor: pointer;
+}
+
 .seekBar {
     height: 5px;
     width: 68.5vw;

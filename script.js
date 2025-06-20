@@ -176,7 +176,7 @@ async function main() {
     // Display all the albums on the page.
     await displayAlbums()
 
-    // Attach an event listener to play, pause, next and previous buttons.
+    // Attach an event listener to play and pause buttons.
     play.addEventListener("click", () => {
         if (currentSong.paused) {
             currentSong.play()
@@ -248,6 +248,86 @@ async function main() {
         document.querySelector(".circle").style.left = percent + "%";
         currentSong.currentTime = (((currentSong.duration) * percent) / 100)
 
+    })
+
+    // Auto play next song when current song ends
+    currentSong.addEventListener("ended", () => {
+        // console.log("Current song ended")
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+        if ((index + 1) < songs.length) {
+            playMusic(songs[index + 1])
+        } else {
+            // console.log("No more songs to play.")
+            // alert("No more songs to play.")
+            play.src = "Images/playBtn.svg"
+            document.querySelector(".songInfo .mar").innerHTML = "No more songs to play."
+            document.querySelector(".songTime").innerHTML = "00:00 / 00:00"
+        }
+    })
+
+    // Add and event listener to loop button, and this will be used to loop the current song.
+    document.querySelector(".loopBtn").addEventListener("click", e => {
+        // alert("Looping is not supported yet.")
+        if (currentSong.dataset.loopAll === "true") {
+            currentSong.dataset.loopAll = "false";
+            e.target.src = e.target.src.replace("loopOn.svg", "loopOff.svg");
+        } else {
+            currentSong.dataset.loopAll = "true";
+            e.target.src = e.target.src.replace("loopOff.svg", "loopOn.svg");
+        }
+
+        // Listen for song end and restart playlist if loopAll is on
+        // Auto restart playlist after finishing last song of the playlist if loopAll is on
+        // The blow code is not working properly, so commented out.
+        // currentSong.addEventListener("ended", () => {
+        //     if (currentSong.dataset.loopAll === "true") {
+        //         let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
+        //         if (index === songs.length - 1) {
+        //             playMusic(songs[0]);
+        //         }
+        //     }
+        // });
+        
+    })
+
+    // Add and event listener to repeat button, this will be used to repeat the current song.
+    document.querySelector(".repeatBtn").addEventListener("click", e => {
+        // alert("Repeating is not supported yet.")
+        if (currentSong.loop) {
+            currentSong.loop = false;
+            e.target.src = e.target.src.replace("repeatOn.svg", "repeatOff.svg");
+        } else {
+            currentSong.loop = true;
+            e.target.src = e.target.src.replace("repeatOff.svg", "repeatOn.svg");
+        }
+    })
+
+    // Add and event listener to shuffle button, this will be used to shuffle the songs.
+    document.querySelector(".shuffleBtn").addEventListener("click", e => {
+        // alert("Shuffling is not supported yet.")
+        if (e.target.src.includes("shuffleOff.svg")) {
+            e.target.src = e.target.src.replace("shuffleOff.svg", "shuffleOn.svg");
+            // Shuffle the songs array
+            // songs.sort(() => Math.random() - 0.5);
+            // // Update the song list
+            // let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
+            // songUL.innerHTML = "";
+            // for (const song of songs) {
+            //     songUL.innerHTML += `<li>
+            //         <img class="invert" width="34" src="Images/music.svg" alt="musicImage">
+            //         <div class="info">
+            //             <div>${decodeURI(song.replaceAll("%20", " "))}</div>
+            //             <div>Ritik Babu</div>
+            //         </div>
+            //         <div class="playNow">
+            //             <span>Play Now</span>
+            //             <img class="invert" width="34" src="Images/playBtn.svg" alt="playButtonImage">
+            //         </div>
+            //     </li>`;
+            // }
+        } else {
+            e.target.src = e.target.src.replace("shuffleOn.svg", "shuffleOff.svg");
+        }
     })
 
     // Add an event listener for hamburger Menu.
