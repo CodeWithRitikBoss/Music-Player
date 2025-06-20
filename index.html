@@ -15,6 +15,12 @@
     <!-- This linke of code is used to add tab icon in the HTML file. -->
     <link rel="tab icon" type="x-icon" href="Images/favIcon.svg">
 
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous"> -->
+
 </head>
 
 <body>
@@ -30,10 +36,16 @@
                     <img width="34" src="Images/favIcon.svg" alt="Music Logo">
                     <pre>  </pre>
                     <h2>Music Player</h2>
-                </div>  
+                </div>
                 <ul>
                     <li><img class="invert" src="Images/homeLogo.svg" alt="Home Image">Home</li>
-                    <li><img class="invert" src="Images/searchLogo.svg" alt="Search Image">Search</li>
+                    <!-- <li><img class="invert" src="Images/searchLogo.svg" alt="Search Image">Search</li> -->
+                    <!-- <div class="searchBarContainer"> -->
+                    <div class="searchBar">
+                        <input id="element1" type="text" placeholder="Search Music" class="searchJS">
+                        <i class="fa fa-search search-icon"></i>
+                    </div>
+                    <!-- </div> -->
                 </ul>
             </div>
             <div class="library bg-gray rounded m-1 p-1">
@@ -88,8 +100,10 @@
                     </div>
                 </div>
                 <div class="buttons">
-                    <button class="signupBtn">Sign up</button>
-                    <button class="loginBtn">Log in</button>
+                    <!-- <button class="signupBtn">Sign up</button> -->
+                    <button class="signupBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">Sign up</button>
+                    <!-- <button class="loginBtn">Log in</button> -->
+                    <button class="loginBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Log in</button>
                 </div>
             </div>
             <div class="musicPlaylists">
@@ -218,7 +232,7 @@
                     <div class="songNameAndTimeBar">
                         <div class="songInfo invert">
                             <!-- This will show by JS -->
-                             <marquee class="mar" behavior="" direction="left">Enjoy The Music</marquee>
+                            <marquee class="mar" behavior="" direction="left">Enjoy The Music</marquee>
                         </div>
                         <div class="songButtons">
                             <img width="30" id="previous" class="invert" src="Images/PreviousBtn.svg"
@@ -243,8 +257,10 @@
             </div>
         </div>
     </div>
-
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

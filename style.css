@@ -60,6 +60,57 @@ body {
 
 }
 
+
+/* Start Search Bar code */
+/* .searchBarContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+} */
+.searchBar {
+    margin: 5px 0px 1px 2px;
+    width: 22vw;
+    height: 25px;
+    background-color: #1f1f1f;
+    border-radius: 5px;
+    border: 2px solid #1f1f1f;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    /* box-shadow: 2px 5px 8px #2e2d2d; */
+}
+
+.searchBar:hover {
+    box-shadow: 1px 1px 4px rgb(81, 80, 80);
+}
+
+.searchBar>i {
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.searchBar input {
+    /* text-align: center; */
+    font-size: 15px;
+    /* font-style: italic; */
+    background-color: #1f1f1f;
+    color: cyan;
+    flex: 1;
+    border: none;
+    outline: none;
+    margin-right: 2px;
+    margin-left: 2px;
+    padding: 0px 5px 0px 0px;
+}
+
+/* End search bar code */
+
+
+
 .library {
     min-height: 79vh;
     position: relative;

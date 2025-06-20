@@ -259,6 +259,173 @@ async function main() {
     document.querySelector(".close").addEventListener("click", () => {
         document.querySelector(".left").style.left = "-120%"
     })
+
+    // Add an event listener to login button.
+    document.querySelector(".loginBtn").addEventListener("click", () => {
+        // Create the popup overlay
+        let popup = document.createElement("div");
+        popup.style.position = "fixed";
+        popup.style.top = "0";
+        popup.style.left = "0";
+        popup.style.width = "100vw";
+        popup.style.height = "100vh";
+        popup.style.background = "rgba(0,0,0,0.5)";
+        popup.style.display = "flex";
+        popup.style.alignItems = "center";
+        popup.style.justifyContent = "center";
+        popup.style.zIndex = "9999";
+
+        // Create the form container
+        let form = document.createElement("div");
+        form.style.background = "#222";
+        form.style.padding = "32px";
+        form.style.borderRadius = "8px";
+        form.style.boxShadow = "0 2px 16px rgba(0,0,0,0.3)";
+        // form.style.minWidth = "300px";
+        form.style.maxWidth = "320px"; // Optionally set a max width for better appearance
+        form.innerHTML = `
+            <h1 style="color:#fff;margin-bottom:16px;">Login</h1>
+            <label style="color:#fff;font-size:15px;">Email</label>
+            <input type="email" style="width:100%;margin-bottom:20px;padding:8px;border-radius:4px;border:none;font-size:15px;background:#666;color:#fff;" required>
+            <label style="color:#fff;font-size:15px;">Password</label>
+            <input type="password" style="width:100%;margin-bottom:20px;padding:8px;border-radius:4px;border:none;font-size:15px;background:#666;color:#fff;" required>
+            <div class="login-error" style="color:#f44336;font-size:15px;margin-bottom:10px;min-height:18px;"></div>
+            <div style="display:flex;justify-content:space-between;">
+                <button type="submit" style="padding:8px 16px;border:none;border-radius:4px;background:#4caf50;color:#fff;cursor:pointer;font-size:15px;">Login</button>
+                <button type="button" class="closeLogin" style="padding:8px 16px;border:none;border-radius:4px;background:#f44336;color:#fff;cursor:pointer;font-size:15px;">Cancel</button>
+            </div>
+        `;
+
+        popup.appendChild(form);
+        document.body.appendChild(popup);
+
+        // Close popup on cancel
+        form.querySelector(".closeLogin").onclick = () => {
+            document.body.removeChild(popup);
+        };
+
+        form.querySelector("button[type='submit']").onclick = (e) => {
+            e.preventDefault();
+            let email = form.querySelector("input[type='email']").value.trim();
+            let password = form.querySelector("input[type='password']").value;
+            let errorDiv = form.querySelector(".login-error");
+            errorDiv.textContent = "";
+            let confirm = form.querySelector(".signup-confirm") ? form.querySelector(".signup-confirm").value : "";
+            // Validate the form inputs
+            if (!email || !password) {
+                errorDiv.textContent = "Both email and password are required.";
+                return;
+            }
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                errorDiv.textContent = "Please enter a valid email address.";
+                return;
+            }
+            if (password.length < 6) {
+                errorDiv.textContent = "Password must be at least 6 characters.";
+                return;
+            }
+
+            // You can add your login logic here (e.g., send to server)
+            alert(`Login submitted!\nEmail: ${email}`);
+            document.body.removeChild(popup);
+
+            // Save email and password to a file (requires backend)
+            fetch('save-login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            }).then(res => {
+                // Optionally handle response
+            }).catch(err => {
+                // Optionally handle error
+            });
+        };
+    });
+
+    // Add an event listener to signup button.
+    document.querySelector(".signupBtn").addEventListener("click", () => {
+        // Create the popup overlay
+        let popup = document.createElement("div");
+        popup.style.position = "fixed";
+        popup.style.top = "0";
+        popup.style.left = "0";
+        popup.style.width = "100vw";
+        popup.style.height = "100vh";
+        popup.style.background = "rgba(0,0,0,0.5)";
+        popup.style.display = "flex";
+        popup.style.alignItems = "center";
+        popup.style.justifyContent = "center";
+        popup.style.zIndex = "9999";
+
+        // Create the form container
+        let form = document.createElement("div");
+        form.style.background = "#222";
+        form.style.padding = "32px";
+        form.style.borderRadius = "8px";
+        form.style.boxShadow = "0 2px 16px rgba(0,0,0,0.3)";
+        // form.style.minWidth = "120px";
+        // form.style.minWidth = "120px"; // Decreased width to half (was 120px)
+        form.style.maxWidth = "320px"; // Optionally set a max width for better appearance
+        form.innerHTML = `
+            <h1 style="color:#fff;margin-bottom:16px;font-size:18px;">Sign Up</h1>
+            <label style="color:#fff;font-size:15px;">Full Name</label>
+            <input type="text" class="signup-name" style="width:100%;margin-bottom:20px;padding:8px;border-radius:4px;border:none;font-size:15px;background:#666;color:#fff;" required>
+            <label style="color:#fff;font-size:15px;">Email</label>
+            <input type="email" class="signup-email" style="width:100%;margin-bottom:20px;padding:8px;border-radius:4px;border:none;font-size:15px;background:#666;color:#fff;" required>
+            <label style="color:#fff;font-size:15px;">Password</label>
+            <input type="password" class="signup-password" style="width:100%;margin-bottom:20px;padding:8px;border-radius:4px;border:none;font-size:15px;background:#666;color:#fff;" required>
+            <label style="color:#fff;font-size:15px;">Confirm Password</label>
+            <input type="password" class="signup-confirm" style="width:100%;margin-bottom:20px;padding:8px;border-radius:4px;border:none;font-size:15px;background:#666;color:#fff;" required>
+            <div class="signup-error" style="color:#f44336;font-size:15px;margin-bottom:10px;min-height:18px;"></div>
+            <div style="display:flex;justify-content:space-between;">
+                <button type="submit" style="padding:8px 16px;border:none;border-radius:4px;background:#2196f3;color:#fff;cursor:pointer;font-size:15px;">Sign Up</button>
+                <button type="button" class="closeSignup" style="padding:8px 16px;border:none;border-radius:4px;background:#f44336;color:#fff;cursor:pointer;font-size:15px;">Cancel</button>
+            </div>
+        `;
+
+        popup.appendChild(form);
+        document.body.appendChild(popup);
+
+        // Close popup on cancel
+        form.querySelector(".closeSignup").onclick = () => {
+            document.body.removeChild(popup);
+        };
+
+        // Handle form submission
+        form.querySelector("button[type='submit']").onclick = (e) => {
+            e.preventDefault();
+            let name = form.querySelector(".signup-name").value.trim();
+            let email = form.querySelector(".signup-email").value.trim();
+            let password = form.querySelector(".signup-password").value;
+            let confirm = form.querySelector(".signup-confirm").value;
+            let errorDiv = form.querySelector(".signup-error");
+            errorDiv.textContent = "";
+
+            if (!name || !email || !password || !confirm) {
+                errorDiv.textContent = "All fields are required.";
+                return;
+            }
+            if (password !== confirm) {
+                errorDiv.textContent = "Passwords do not match.";
+                return;
+            }
+
+            // You can add more validation here
+            alert("Signup submitted!");
+            document.body.removeChild(popup);
+        };
+    });
+
+    // Add an event listener to the search icon for handling search functionality.
+    document.querySelector(".search-icon").addEventListener("click", () => {
+        const searchValue = document.querySelector(".searchBar input").value.trim();
+        if (!searchValue) {
+            alert("Search value is not valid.");
+        } else {
+            alert("Under Developing: " + searchValue);
+        }
+    });
 }
 
 // Call the main function to start the application.
